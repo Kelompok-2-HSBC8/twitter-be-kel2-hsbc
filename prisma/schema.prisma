@@ -12,59 +12,60 @@ datasource db {
 
 model Likes {
   id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  createdAt DateTime
-  tweetId   String?  @db.Uuid
+  createdAt DateTime @default(now())
   userId    String?  @db.Uuid
-  tweet     Tweet?   @relation(fields: [tweetId], references: [id], onDelete: Cascade)
   user      users?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Tweet     Tweet[]
 
   @@schema("public")
 }
 
 model Comment {
   id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  createdAt DateTime
-  tweetId   String?  @db.Uuid
+  createdAt DateTime @default(now())
   userId    String?  @db.Uuid
-  tweet     Tweet?   @relation(fields: [tweetId], references: [id], onDelete: Cascade)
+  content   String?  @db.VarChar
   user      users?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Tweet     Tweet[]
 
   @@schema("public")
 }
 
 model Share {
   id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  createdAt DateTime
-  tweetId   String?  @db.Uuid
+  createdAt DateTime @default(now())
   userId    String?  @db.Uuid
-  tweet     Tweet?   @relation(fields: [tweetId], references: [id], onDelete: Cascade)
   user      users?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Tweet     Tweet[]
 
   @@schema("public")
 }
 
 model Retweet {
   id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  createdAt DateTime
-  tweetId   String?  @db.Uuid
+  createdAt DateTime @default(now())
   userId    String?  @db.Uuid
-  tweet     Tweet?   @relation(fields: [tweetId], references: [id], onDelete: Cascade)
   user      users?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Tweet     Tweet[]
 
   @@schema("public")
 }
 
 model Tweet {
   id           String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  createdAt    DateTime
+  createdAt    DateTime       @default(now())
   content      String?
   userId       String?        @db.Uuid
-  commentBy    Comment[]
-  likesBy      Likes[]
+  likedBy      String?        @db.Uuid
+  sharedBy     String?        @db.Uuid
+  retweetBy    String?        @db.Uuid
+  commentBy    String?        @db.Uuid
   Notification Notification[]
-  retweetBy    Retweet[]
-  shareBy      Share[]
   Trend        Trend[]
+  Comment      Comment?       @relation(fields: [commentBy], references: [id], onDelete: Cascade)
+  Likes        Likes?         @relation(fields: [likedBy], references: [id], onDelete: Cascade)
+  Retweet      Retweet?       @relation(fields: [retweetBy], references: [id], onDelete: Cascade)
+  Share        Share?         @relation(fields: [sharedBy], references: [id], onDelete: Cascade)
   postedBy     users?         @relation(fields: [userId], references: [id], onDelete: Cascade)
   TrendToTweet TrendToTweet[]
 
@@ -73,8 +74,8 @@ model Tweet {
 
 model Message {
   id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  createdAt DateTime
-  message   String?
+  createdAt DateTime @default(now())
+  content   String?
   userId    String?  @db.Uuid
   user      users?   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -98,7 +99,7 @@ model Notification {
 
 model Trend {
   id           String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  createdAt    DateTime
+  createdAt    DateTime       @default(now())
   name         String?
   country      String?
   tweetId      String?        @db.Uuid
