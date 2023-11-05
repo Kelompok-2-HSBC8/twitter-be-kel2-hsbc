@@ -4,15 +4,23 @@
     "commonjs": true,
     "es2020": true
   },
+<<<<<<< HEAD
   "extends": [ "airbnb-base"],
+=======
+>>>>>>> d6250b0ea5c9cab2a9aad6b1da9ab9ffc133de01
   "parserOptions": {
     "ecmaVersion": 11
   },
   "rules": {
     "prettier/prettier": "off",
     "no-console": "off",
+<<<<<<< HEAD
     "linebreak-style": "off",
     "no-unused-vars":"off"
   },
   "plugins": []
+=======
+    "no-unused-vars": "off"
+  }
+>>>>>>> d6250b0ea5c9cab2a9aad6b1da9ab9ffc133de01
 }
