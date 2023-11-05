@@ -15,11 +15,11 @@ exports.getUserById = async (req, res) => {
     const user = await userId(userid);
 
     if (user) {
-      res.status(200).json(user);
+      res.status(200).json({ status: 200, message: 'Success', data: user });
     } else {
-      res.status(404).json({ msg: 'usernya ga ada' });
+      res.status(404).json({ status: 404, message: 'not found' });
     }
   } catch (error) {
-    res.status(500).json({ msg: error.message });
+    res.status(500).json({ status: 500, message: error.message });
   }
 };

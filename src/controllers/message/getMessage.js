@@ -48,7 +48,7 @@ const getMessage = async (req, res) => {
         },
       },
     });
-    res.status(200).json({ status: 200, data: response, message: 'Success' });
+    res.status(200).json({ status: 200, message: 'Success', data: response });
   } catch (error) {
     console.log(error);
   }

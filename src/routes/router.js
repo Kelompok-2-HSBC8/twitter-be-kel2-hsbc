@@ -5,8 +5,8 @@ const sendMessage = require('../controllers/message/sendMessage');
 
 const router = express.Router();
 
-router.get('/chat', getMessage);
-router.post('/chat', sendMessage);
+router.get('/v1/chat', getMessage);
+router.post('/v1/chat', sendMessage);
 router.get('/v1/user', user.getUser);
 router.get('/v1/user/:id', user.getUserById);
 

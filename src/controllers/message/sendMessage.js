@@ -10,7 +10,7 @@ const sendMessage = async (req, res) => {
         messageId: req.body.messageId,
       },
     });
-    res.status(201).json({ status: 201, data: response, message: 'Success' });
+    res.status(201).json({ status: 201, message: 'Success', data: response });
   } catch (error) {
     console.log(error);
   }
