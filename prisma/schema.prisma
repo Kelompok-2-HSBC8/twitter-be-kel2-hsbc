@@ -72,6 +72,8 @@ model Tweet {
   @@schema("public")
 }
 
+<<<<<<< HEAD
+=======
 model Message {
   id                              String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   createdAt                       DateTime @default(now())
@@ -84,6 +86,7 @@ model Message {
   @@schema("public")
 }
 
+>>>>>>> d6250b0ea5c9cab2a9aad6b1da9ab9ffc133de01
 model Notification {
   id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   createdAt DateTime
@@ -376,6 +379,10 @@ model users {
   identities                        identities[]
   mfa_factors                       mfa_factors[]
   sessions                          sessions[]
+<<<<<<< HEAD
+  Chat                              Chat[]
+=======
+>>>>>>> d6250b0ea5c9cab2a9aad6b1da9ab9ffc133de01
   Comment                           Comment[]
   Likes                             Likes[]
   Message_Message_receiverIdTousers Message[]      @relation("Message_receiverIdTousers")
@@ -398,6 +405,31 @@ model TrendToTweet {
   Tweet Tweet?  @relation(fields: [TWEET], references: [id], onDelete: Cascade)
 
   @@map("_TrendToTweet")
+  @@schema("public")
+}
+
+model Message {
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt  DateTime @default(now())
+  receiverId String?  @db.Uuid
+  senderId   String?  @db.Uuid
+  chat       Chat[]
+  receiver   users?   @relation("Message_receiverIdTousers", fields: [receiverId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  sender     users?   @relation("Message_senderIdTousers", fields: [senderId], references: [id], onDelete: Cascade)
+
+  @@schema("public")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model Chat {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt DateTime @default(now()) @db.Timestamptz(6)
+  content   String?
+  senderId  String?  @db.Uuid
+  messageId String?  @db.Uuid
+  Message   Message? @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  sender    users?   @relation(fields: [senderId], references: [id], onDelete: Cascade)
+
   @@schema("public")
 }
 

@@ -2,7 +2,7 @@ const prisma = require('../config/db');
 
 exports.user = async () => {
   const response = await prisma.users.findMany();
-  return response;
+  return { status: 200, message: 'Success', data: response };
 };
 
 exports.userId = async (userid) => {
@@ -11,5 +11,5 @@ exports.userId = async (userid) => {
       id: userid,
     },
   });
-  return response;
+  return { status: 200, message: 'Success', data: response };
 };
