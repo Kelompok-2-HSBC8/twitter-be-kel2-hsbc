@@ -5,9 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
-    "dev": "nodemon src/index.js",
-    "build": "webpack --config webpack.config.js",
-    "vercel-build": "echo Server Starting.."
+    "dev": "nodemon src/index.js"
   },
   "author": "",
   "license": "MIT",
