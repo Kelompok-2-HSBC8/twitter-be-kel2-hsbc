@@ -23,7 +23,6 @@
     "html-webpack-plugin": "^5.5.3",
     "nodemon": "latest",
     "prettier": "latest",
-    "prisma": "^5.4.2",
     "webpack": "^5.89.0",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.15.1",
@@ -32,6 +31,7 @@
   "dependencies": {
     "@prisma/client": "^5.4.2",
     "@supabase/supabase-js": "^2.38.3",
+    "prisma": "^5.4.2",
     "assert": "latest",
     "cors": "latest",
     "dotenv": "latest",
