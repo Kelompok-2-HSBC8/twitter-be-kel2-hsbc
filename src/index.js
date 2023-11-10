@@ -15,5 +15,3 @@ app.use(router);
 app.listen(process.env.SERVER_PORT, () => {
   console.log('Server Running');
 });
-
-module.exports = app;
