@@ -72,21 +72,6 @@ model Tweet {
   @@schema("public")
 }
 
-<<<<<<< HEAD
-=======
-model Message {
-  id                              String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  createdAt                       DateTime @default(now())
-  content                         String?
-  senderId                        String?  @db.Uuid
-  receiverId                      String?  @db.Uuid
-  users_Message_receiverIdTousers users?   @relation("Message_receiverIdTousers", fields: [receiverId], references: [id], onDelete: Cascade)
-  users_Message_senderIdTousers   users?   @relation("Message_senderIdTousers", fields: [senderId], references: [id], onDelete: Cascade)
-
-  @@schema("public")
-}
-
->>>>>>> d6250b0ea5c9cab2a9aad6b1da9ab9ffc133de01
 model Notification {
   id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   createdAt DateTime
@@ -379,10 +364,7 @@ model users {
   identities                        identities[]
   mfa_factors                       mfa_factors[]
   sessions                          sessions[]
-<<<<<<< HEAD
   Chat                              Chat[]
-=======
->>>>>>> d6250b0ea5c9cab2a9aad6b1da9ab9ffc133de01
   Comment                           Comment[]
   Likes                             Likes[]
   Message_Message_receiverIdTousers Message[]      @relation("Message_receiverIdTousers")
