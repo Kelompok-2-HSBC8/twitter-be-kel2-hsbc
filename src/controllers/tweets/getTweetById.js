@@ -1,4 +1,4 @@
-const { tweetById } = require('../../models/tweets/getTweetById');
+const tweetById = require('../../models/tweets/getTweetById');
 
 const getTweetById = async (req, res, next) => {
   try {
@@ -30,4 +30,4 @@ const getTweetById = async (req, res, next) => {
   }
 };
 
-module.exports = { getTweetById };
+module.exports = getTweetById;

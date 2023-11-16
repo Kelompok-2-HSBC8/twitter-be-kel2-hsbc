@@ -41,6 +41,4 @@ const tweetById = async (id) => {
   return tweets;
 };
 
-module.exports = {
-  tweetById,
-};
+module.exports = tweetById;

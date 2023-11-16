@@ -2,7 +2,7 @@ const express = require('express');
 const user = require('../controllers/useraAPI/userController');
 const getMessage = require('../controllers/message/getMessage');
 const sendMessage = require('../controllers/message/sendMessage');
-const { getTweetById } = require('../controllers/tweets/getTweetById');
+const getTweetById = require('../controllers/tweets/getTweetById');
 const trendsRoute = require('../controllers/trends/getTrends');
 
 const router = express.Router();
