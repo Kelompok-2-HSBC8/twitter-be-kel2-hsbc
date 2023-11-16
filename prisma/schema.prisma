@@ -14,8 +14,9 @@ model Likes {
   id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   createdAt DateTime @default(now())
   userId    String?  @db.Uuid
+  tweetId   String?  @db.Uuid
+  Tweet     Tweet?   @relation(fields: [tweetId], references: [id], onDelete: Cascade)
   user      users?   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  Tweet     Tweet[]
 
   @@schema("public")
 }
@@ -25,8 +26,9 @@ model Comment {
   createdAt DateTime @default(now())
   userId    String?  @db.Uuid
   content   String?  @db.VarChar
+  tweetId   String?  @db.Uuid
+  Tweet     Tweet?   @relation(fields: [tweetId], references: [id], onDelete: Cascade)
   user      users?   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  Tweet     Tweet[]
 
   @@schema("public")
 }
@@ -35,8 +37,9 @@ model Share {
   id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   createdAt DateTime @default(now())
   userId    String?  @db.Uuid
+  tweetId   String?  @db.Uuid
+  Tweet     Tweet?   @relation(fields: [tweetId], references: [id], onDelete: Cascade)
   user      users?   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  Tweet     Tweet[]
 
   @@schema("public")
 }
@@ -45,8 +48,9 @@ model Retweet {
   id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   createdAt DateTime @default(now())
   userId    String?  @db.Uuid
+  tweetId   String?  @db.Uuid
+  Tweet     Tweet?   @relation(fields: [tweetId], references: [id], onDelete: Cascade)
   user      users?   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  Tweet     Tweet[]
 
   @@schema("public")
 }
@@ -56,28 +60,14 @@ model Tweet {
   createdAt    DateTime       @default(now())
   content      String?
   userId       String?        @db.Uuid
-  likedBy      String?        @db.Uuid
-  sharedBy     String?        @db.Uuid
-  retweetBy    String?        @db.Uuid
-  commentBy    String?        @db.Uuid
+  commentBy    Comment[]
+  likesBy      Likes[]
   Notification Notification[]
+  retweetBy    Retweet[]
+  shareBy      Share[]
   Trend        Trend[]
-  Comment      Comment?       @relation(fields: [commentBy], references: [id], onDelete: Cascade)
-  Likes        Likes?         @relation(fields: [likedBy], references: [id], onDelete: Cascade)
-  Retweet      Retweet?       @relation(fields: [retweetBy], references: [id], onDelete: Cascade)
-  Share        Share?         @relation(fields: [sharedBy], references: [id], onDelete: Cascade)
   postedBy     users?         @relation(fields: [userId], references: [id], onDelete: Cascade)
   TrendToTweet TrendToTweet[]
-
-  @@schema("public")
-}
-
-model Message {
-  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  createdAt DateTime @default(now())
-  content   String?
-  userId    String?  @db.Uuid
-  user      users?   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@schema("public")
 }
@@ -292,6 +282,9 @@ model sessions {
   factor_id      String?          @db.Uuid
   aal            aal_level?
   not_after      DateTime?        @db.Timestamptz(6)
+  refreshed_at   DateTime?        @db.Timestamp(6)
+  user_agent     String?
+  ip             String?          @db.Inet
   mfa_amr_claims mfa_amr_claims[]
   refresh_tokens refresh_tokens[]
   users          users            @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
@@ -337,51 +330,53 @@ model sso_providers {
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 /// This model contains an expression index which requires additional setup for migrations. Visit https://pris.ly/d/expression-indexes for more info.
 model users {
-  instance_id                 String?        @db.Uuid
-  id                          String         @id @default(dbgenerated("auth.uid()")) @db.Uuid
-  aud                         String?        @db.VarChar(255)
-  role                        String?        @db.VarChar(255)
-  email                       String?        @db.VarChar(255)
-  encrypted_password          String?        @db.VarChar(255)
-  email_confirmed_at          DateTime?      @db.Timestamptz(6)
-  invited_at                  DateTime?      @db.Timestamptz(6)
-  confirmation_token          String?        @db.VarChar(255)
-  confirmation_sent_at        DateTime?      @db.Timestamptz(6)
-  recovery_token              String?        @db.VarChar(255)
-  recovery_sent_at            DateTime?      @db.Timestamptz(6)
-  email_change_token_new      String?        @db.VarChar(255)
-  email_change                String?        @db.VarChar(255)
-  email_change_sent_at        DateTime?      @db.Timestamptz(6)
-  last_sign_in_at             DateTime?      @db.Timestamptz(6)
-  raw_app_meta_data           Json?
-  raw_user_meta_data          Json?
-  is_super_admin              Boolean?
-  created_at                  DateTime?      @db.Timestamptz(6)
-  updated_at                  DateTime?      @db.Timestamptz(6)
-  phone                       String?        @unique
-  phone_confirmed_at          DateTime?      @db.Timestamptz(6)
-  phone_change                String?        @default("")
-  phone_change_token          String?        @default("") @db.VarChar(255)
-  phone_change_sent_at        DateTime?      @db.Timestamptz(6)
-  confirmed_at                DateTime?      @default(dbgenerated("LEAST(email_confirmed_at, phone_confirmed_at)")) @db.Timestamptz(6)
-  email_change_token_current  String?        @default("") @db.VarChar(255)
-  email_change_confirm_status Int?           @default(0) @db.SmallInt
-  banned_until                DateTime?      @db.Timestamptz(6)
-  reauthentication_token      String?        @default("") @db.VarChar(255)
-  reauthentication_sent_at    DateTime?      @db.Timestamptz(6)
-  is_sso_user                 Boolean        @default(false)
-  deleted_at                  DateTime?      @db.Timestamptz(6)
-  identities                  identities[]
-  mfa_factors                 mfa_factors[]
-  sessions                    sessions[]
-  Comment                     Comment[]
-  Likes                       Likes[]
-  Message                     Message[]
-  Notification                Notification[]
-  Retweet                     Retweet[]
-  Share                       Share[]
-  Trend                       Trend[]
-  tweet                       Tweet[]
+  instance_id                       String?        @db.Uuid
+  id                                String         @id @default(dbgenerated("auth.uid()")) @db.Uuid
+  aud                               String?        @db.VarChar(255)
+  role                              String?        @db.VarChar(255)
+  email                             String?        @db.VarChar(255)
+  encrypted_password                String?        @db.VarChar(255)
+  email_confirmed_at                DateTime?      @db.Timestamptz(6)
+  invited_at                        DateTime?      @db.Timestamptz(6)
+  confirmation_token                String?        @db.VarChar(255)
+  confirmation_sent_at              DateTime?      @db.Timestamptz(6)
+  recovery_token                    String?        @db.VarChar(255)
+  recovery_sent_at                  DateTime?      @db.Timestamptz(6)
+  email_change_token_new            String?        @db.VarChar(255)
+  email_change                      String?        @db.VarChar(255)
+  email_change_sent_at              DateTime?      @db.Timestamptz(6)
+  last_sign_in_at                   DateTime?      @db.Timestamptz(6)
+  raw_app_meta_data                 Json?
+  raw_user_meta_data                Json?
+  is_super_admin                    Boolean?
+  created_at                        DateTime?      @db.Timestamptz(6)
+  updated_at                        DateTime?      @db.Timestamptz(6)
+  phone                             String?        @unique
+  phone_confirmed_at                DateTime?      @db.Timestamptz(6)
+  phone_change                      String?        @default("")
+  phone_change_token                String?        @default("") @db.VarChar(255)
+  phone_change_sent_at              DateTime?      @db.Timestamptz(6)
+  confirmed_at                      DateTime?      @default(dbgenerated("LEAST(email_confirmed_at, phone_confirmed_at)")) @db.Timestamptz(6)
+  email_change_token_current        String?        @default("") @db.VarChar(255)
+  email_change_confirm_status       Int?           @default(0) @db.SmallInt
+  banned_until                      DateTime?      @db.Timestamptz(6)
+  reauthentication_token            String?        @default("") @db.VarChar(255)
+  reauthentication_sent_at          DateTime?      @db.Timestamptz(6)
+  is_sso_user                       Boolean        @default(false)
+  deleted_at                        DateTime?      @db.Timestamptz(6)
+  identities                        identities[]
+  mfa_factors                       mfa_factors[]
+  sessions                          sessions[]
+  Chat                              Chat[]
+  Comment                           Comment[]
+  Likes                             Likes[]
+  Message_Message_receiverIdTousers Message[]      @relation("Message_receiverIdTousers")
+  Message_Message_senderIdTousers   Message[]      @relation("Message_senderIdTousers")
+  Notification                      Notification[]
+  Retweet                           Retweet[]
+  Share                             Share[]
+  Trend                             Trend[]
+  tweet                             Tweet[]
 
   @@index([instance_id])
   @@schema("auth")
@@ -395,6 +390,31 @@ model TrendToTweet {
   Tweet Tweet?  @relation(fields: [TWEET], references: [id], onDelete: Cascade)
 
   @@map("_TrendToTweet")
+  @@schema("public")
+}
+
+model Message {
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt  DateTime @default(now())
+  receiverId String?  @db.Uuid
+  senderId   String?  @db.Uuid
+  chat       Chat[]
+  receiver   users?   @relation("Message_receiverIdTousers", fields: [receiverId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  sender     users?   @relation("Message_senderIdTousers", fields: [senderId], references: [id], onDelete: Cascade)
+
+  @@schema("public")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model Chat {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt DateTime @default(now()) @db.Timestamptz(6)
+  content   String?
+  senderId  String?  @db.Uuid
+  messageId String?  @db.Uuid
+  Message   Message? @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  sender    users?   @relation(fields: [senderId], references: [id], onDelete: Cascade)
+
   @@schema("public")
 }
 

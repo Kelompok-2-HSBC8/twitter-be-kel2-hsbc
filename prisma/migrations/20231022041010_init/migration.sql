@@ -68,7 +68,7 @@ CREATE TABLE "Tweet" (
 );
 
 -- CreateTable
-CREATE TABLE "Message" (
+CREATE TABLE "Chat" (
     "id" TEXT NOT NULL,
     "userId" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL,

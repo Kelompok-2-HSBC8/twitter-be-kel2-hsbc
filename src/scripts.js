@@ -1,10 +1,10 @@
-/* eslint-disable linebreak-style */
-// eslint-disable-next-line prettier/prettier
-/* eslint-disable linebreak-style */
-/* eslint-disable prettier/prettier */
-// eslint-disable-next-line import/no-extraneous-dependencies
+// /* eslint-disable linebreak-style */
+// // eslint-disable-next-line prettier/prettier
+// /* eslint-disable linebreak-style */
+// /* eslint-disable prettier/prettier */
+// // eslint-disable-next-line import/no-extraneous-dependencies
 const { PrismaClient } = require('@prisma/client');
-// eslint-disable-next-line import/no-extraneous-dependencies
+// // eslint-disable-next-line import/no-extraneous-dependencies
 
 const prisma = new PrismaClient();
 async function main() {

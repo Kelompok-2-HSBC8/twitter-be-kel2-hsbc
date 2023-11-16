@@ -2,27 +2,32 @@ const { tweetById } = require('../../models/tweets/getTweetById');
 
 const getTweetById = async (req, res, next) => {
   try {
-    const paramsid = req.params.id;
-    const tweets = await tweetById(paramsid);
+    const { id } = req.body;
+    const tweets = await tweetById(id);
 
     if (!tweets) {
       res.status(404).json({
-        status: 404,
         message: `Tweet Not Found`,
+        status: 404,
       });
     }
     res.status(200).json({
       status: 200,
+      message: `Success`,
       data: tweets,
-      mesaage: `Success`,
     });
   } catch (error) {
+    if (error.message === 'Invalid Tweet Id') {
+      return res.status(400).json({
+        status: 400,
+        message: error.message,
+      });
+    }
     res.status(500).json({
+      status: 500,
       message: error.message,
     });
   }
 };
 
-module.exports = {
-  getTweetById,
-};
+module.exports = { getTweetById };

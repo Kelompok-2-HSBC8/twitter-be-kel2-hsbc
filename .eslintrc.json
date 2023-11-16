@@ -4,14 +4,12 @@
     "commonjs": true,
     "es2020": true
   },
-  "extends": ["plugin:prettier/recommended", "airbnb-base"],
   "parserOptions": {
     "ecmaVersion": 11
   },
   "rules": {
     "prettier/prettier": "off",
     "no-console": "off",
-    "no-unused-vars":"off"
-  },
-  "plugins": ["prettier"]
+    "no-unused-vars": "off"
+  }
 }

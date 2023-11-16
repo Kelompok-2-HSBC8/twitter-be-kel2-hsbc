@@ -17,6 +17,4 @@ const trend = async (req, res) => {
   }
 };
 
-module.exports = {
-  trend,
-};
+module.exports = trend;
