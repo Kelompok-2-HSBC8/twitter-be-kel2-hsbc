@@ -6,7 +6,7 @@ const getTweetById = async (req, res, next) => {
     const tweets = await tweetById(id);
 
     if (!tweets) {
-      res.status(404).json({
+      return res.status(404).json({
         message: `Tweet Not Found`,
         status: 404,
       });

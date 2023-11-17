@@ -11,6 +11,8 @@ const tweetById = async (id) => {
     select: {
       id: true,
       createdAt: true,
+      updatedAt: true,
+      isUpdated: true,
       content: true,
       postedBy: {
         select: {
