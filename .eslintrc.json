@@ -16,7 +16,8 @@
     "newline-after-var": "off",
     "comma-dangle": "off",
     "implicit-arrow-linebreak": "off",
-    "operator-linebreak": "off"
+    "operator-linebreak": "off",
+    "no-else-return"  : "off"
   },
   "plugins": []
 }

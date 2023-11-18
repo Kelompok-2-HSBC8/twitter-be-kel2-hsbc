@@ -1,13 +1,7 @@
 const prisma = require('../../config/db');
 
-const tweetById = async (id) => {
-  if (!(id.length === 36)) {
-    throw new Error('Invalid Tweet Id');
-  }
-  const tweets = await prisma.tweet.findUnique({
-    where: {
-      id,
-    },
+const getTweetModel = async () => {
+  const response = await prisma.tweet.findMany({
     select: {
       id: true,
       createdAt: true,
@@ -77,7 +71,7 @@ const tweetById = async (id) => {
     },
   });
 
-  return tweets;
+  return response;
 };
 
-module.exports = tweetById;
+module.exports = getTweetModel;

@@ -11,12 +11,13 @@ const getTweetById = async (req, res, next) => {
         message: 'Tweet Not Found',
         status: 404,
       });
+    } else {
+      return res.status(200).json({
+        status: 200,
+        message: 'Success get detail tweet',
+        data: tweets,
+      });
     }
-    res.status(200).json({
-      status: 200,
-      message: 'Success',
-      data: tweets,
-    });
   } catch (error) {
     if (error.message === 'Invalid Tweet Id') {
       return res.status(400).json({
