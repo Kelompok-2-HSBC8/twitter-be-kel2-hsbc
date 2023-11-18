@@ -1,15 +1,16 @@
-const PrismaClient = require('@prisma/client');
+const sendTweetModel = require('../../models/tweets/sendTweetModel');
 
-const prisma = new PrismaClient.PrismaClient();
 const sendTweet = async (req, res) => {
   try {
-    await prisma.tweet.create({
-      data: {
-        content: req.body.content,
-        userId: req.body.id,
-      },
-    });
-    res.status(201).json({ status: 201, message: 'Success create new tweet' });
+    const { content, id } = req.body;
+    const response = await sendTweetModel(content, id);
+    if (response) {
+      res
+        .status(201)
+        .json({ status: 201, message: 'Success create new tweet' });
+    } else {
+      res.status(400).json({ status: 400, message: 'Bad Request' });
+    }
   } catch (error) {
     console.log(error);
   }

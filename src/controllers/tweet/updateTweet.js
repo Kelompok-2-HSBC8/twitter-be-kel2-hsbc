@@ -1,19 +1,16 @@
-const PrismaClient = require('@prisma/client');
+const updateTweetModel = require('../../models/tweets/updateTweetModel');
 
-const prisma = new PrismaClient.PrismaClient();
 const updateTweet = async (req, res) => {
   try {
-    await prisma.tweet.update({
-      where: {
-        id: req.body.id,
-      },
-      data: {
-        content: req.body.content,
-        updatedAt: new Date(),
-        isUpdated: true,
-      },
-    });
-    res.status(200).json({ status: 200, message: 'Success update data tweet' });
+    const { id, content } = req.params;
+    const response = await updateTweetModel(content, id);
+    if (!response) {
+      res.status(400).json({ status: 400, message: 'Bad Request' });
+    } else {
+      res
+        .status(200)
+        .json({ status: 200, message: 'Success update data tweet' });
+    }
   } catch (error) {
     console.log(error);
   }
