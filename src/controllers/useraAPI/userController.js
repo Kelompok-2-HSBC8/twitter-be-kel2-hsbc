@@ -12,10 +12,10 @@ exports.getUser = async (req, res) => {
 exports.getUserById = async (req, res) => {
   try {
     const userid = req.params.id;
-    const user = await userId(userid);
+    const getUser = await userId(userid);
 
-    if (user) {
-      res.status(200).json({ status: 200, message: 'Success', data: user });
+    if (getUser) {
+      res.status(200).json({ status: 200, message: 'Success', data: getUser });
     } else {
       res.status(404).json({ status: 404, message: 'not found' });
     }
