@@ -1,5 +1,6 @@
 const tweetById = require('../../models/tweets/getTweetById');
 
+// eslint-disable-next-line consistent-return
 const getTweetById = async (req, res, next) => {
   try {
     const { id } = req.body;
@@ -7,13 +8,13 @@ const getTweetById = async (req, res, next) => {
 
     if (!tweets) {
       return res.status(404).json({
-        message: `Tweet Not Found`,
+        message: 'Tweet Not Found',
         status: 404,
       });
     }
     res.status(200).json({
       status: 200,
-      message: `Success`,
+      message: 'Success',
       data: tweets,
     });
   } catch (error) {

@@ -6,7 +6,7 @@ const tweetById = async (id) => {
   }
   const tweets = await prisma.tweet.findUnique({
     where: {
-      id: id,
+      id,
     },
     select: {
       id: true,

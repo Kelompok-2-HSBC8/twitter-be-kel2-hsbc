@@ -58,15 +58,15 @@ model Retweet {
 model Tweet {
   id           String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   createdAt    DateTime       @default(now())
-  updatedAt    DateTime?      @default(now())
-  isUpdated    Boolean?       @default(false)
+  updatedAt    DateTime       @default(now())
+  isUpdated    Boolean        @default(false)
   content      String?
   userId       String?        @db.Uuid
-  commentBy    Comment[]
-  likesBy      Likes[]
+  commentBy      Comment[]
+  likesBy        Likes[]
   Notification Notification[]
-  retweetBy    Retweet[]
-  shareBy      Share[]
+  retweetBy      Retweet[]
+  shareBy        Share[]
   Trend        Trend[]
   postedBy     users?         @relation(fields: [userId], references: [id], onDelete: Cascade)
   TrendToTweet TrendToTweet[]

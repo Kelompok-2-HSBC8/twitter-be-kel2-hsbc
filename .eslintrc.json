@@ -4,12 +4,19 @@
     "commonjs": true,
     "es2020": true
   },
+  "extends": [ "airbnb-base"],
   "parserOptions": {
     "ecmaVersion": 11
   },
   "rules": {
     "prettier/prettier": "off",
     "no-console": "off",
-    "no-unused-vars": "off"
-  }
+    "linebreak-style": "off",
+    "no-unused-vars":"off",
+    "newline-after-var": "off",
+    "comma-dangle": "off",
+    "implicit-arrow-linebreak": "off",
+    "operator-linebreak": "off"
+  },
+  "plugins": []
 }

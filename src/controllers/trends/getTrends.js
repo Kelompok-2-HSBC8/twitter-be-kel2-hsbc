@@ -7,7 +7,7 @@ const trend = async (req, res) => {
     res.status(200).json({
       status: 200,
       data: trends,
-      mesaage: `Success`,
+      mesaage: 'Success',
     });
   } catch (error) {
     res.status(500).json({
