@@ -14,7 +14,9 @@
     "linebreak-style": "off",
     "no-unused-vars":"off",
     "newline-after-var": "off",
-    "comma-dangle": "off"
+    "comma-dangle": "off",
+    "implicit-arrow-linebreak": "off",
+    "operator-linebreak": "off"
   },
   "plugins": []
 }
