@@ -14,7 +14,7 @@ tweetRouter.get('/v1/tweet', authMiddleware, getTweet);
 tweetRouter.post('/v1/tweet', authMiddleware, sendTweet);
 tweetRouter.put('/v1/tweet', authMiddleware, updateTweet);
 tweetRouter.delete('/v1/tweet', authMiddleware, deleteTweet);
-tweetRouter.get('/v1/tweet', authMiddleware, getTweetById);
+tweetRouter.get('/v1/tweet/:id', authMiddleware, getTweetById);
 tweetRouter.post('/v1/tweet/like', authMiddleware, likeTweet);
 tweetRouter.post('/v1/tweet/comment', authMiddleware, sendComment);
 
