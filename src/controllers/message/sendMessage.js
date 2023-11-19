@@ -5,7 +5,7 @@ const sendMessage = async (req, res) => {
     const { content, id, messageId } = req.body;
     const response = await sendMessageModel(content, id, messageId);
     if (response) {
-      res.status(201).json({ status: 201, message: 'Success', data: response });
+      res.status(201).json({ status: 201, message: 'Success send message' });
     } else {
       res.status(400).json({ status: 400, message: 'Bad Request' });
     }

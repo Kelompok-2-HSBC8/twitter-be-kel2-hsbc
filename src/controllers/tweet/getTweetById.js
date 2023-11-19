@@ -3,7 +3,7 @@ const tweetById = require('../../models/tweets/getTweetById');
 // eslint-disable-next-line consistent-return
 const getTweetById = async (req, res, next) => {
   try {
-    const { id } = req.body;
+    const { id } = req.params;
     const tweets = await tweetById(id);
 
     if (!tweets) {
@@ -11,13 +11,12 @@ const getTweetById = async (req, res, next) => {
         message: 'Tweet Not Found',
         status: 404,
       });
-    } else {
-      return res.status(200).json({
-        status: 200,
-        message: 'Success get detail tweet',
-        data: tweets,
-      });
     }
+    return res.status(200).json({
+      status: 200,
+      message: 'Success get detail tweet',
+      data: tweets,
+    });
   } catch (error) {
     if (error.message === 'Invalid Tweet Id') {
       return res.status(400).json({
