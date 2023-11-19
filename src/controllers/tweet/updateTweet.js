@@ -2,7 +2,7 @@ const updateTweetModel = require('../../models/tweets/updateTweetModel');
 
 const updateTweet = async (req, res) => {
   try {
-    const { id, content } = req.params;
+    const { id, content } = req.body;
     const response = await updateTweetModel(content, id);
     if (!response) {
       res.status(400).json({ status: 400, message: 'Bad Request' });
