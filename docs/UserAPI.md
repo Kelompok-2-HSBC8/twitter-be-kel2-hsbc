@@ -11,14 +11,14 @@ GET `BASE_URL/v1/user`
 
 *HEADERS*
 
-json
+```JSON
 {
   "Authorization": "Bearer $token"
 }
-
+```
 *Example Response*
 
-json
+```JSON
 {
   "status": 200,
   "message": "Success",
@@ -76,7 +76,7 @@ json
       "deleted_at": null
     }]
 }
-
+```
 ## `Get User By ID`
 
 *URL*:
@@ -84,11 +84,11 @@ GET `BASE_URL/v1/user/:id`
 
 *HEADERS*
 
-json
+```JSON
 {
   "Authorization": "Bearer $token"
 }
-
+```
 
 *REQUEST PARAMS*
 
@@ -100,7 +100,7 @@ json
 
 *Example Response*
 
-json
+```JSON
 {
   "status": 200,
   "message": "Success",
@@ -135,3 +135,4 @@ json
     }
   }
 }
+```
