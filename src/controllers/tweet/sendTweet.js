@@ -3,14 +3,20 @@ const sendTweetModel = require('../../models/tweets/sendTweetModel');
 const sendTweet = async (req, res) => {
   try {
     const { content, id } = req.body;
-    const response = await sendTweetModel(content, id);
-    if (response) {
-      res
-        .status(201)
-        .json({ status: 201, message: 'Success create new tweet' });
-    } else {
-      res.status(400).json({ status: 400, message: 'Bad Request' });
+    if (!content) {
+      return res.status(400).json({ status: 400, message: 'Bad Request' });
     }
+
+    if (!id) {
+      return res.status(400).json({ status: 400, message: 'Bad Request' });
+    }
+    const response = await sendTweetModel(content, id);
+    if (!response) {
+      return res.status(400).json({ status: 400, message: 'Bad Request' });
+    }
+    return res
+      .status(201)
+      .json({ status: 201, message: 'Success create new tweet' });
   } catch (error) {
     console.log(error);
   }

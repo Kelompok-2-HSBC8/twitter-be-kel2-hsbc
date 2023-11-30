@@ -17,7 +17,8 @@
     "comma-dangle": "off",
     "implicit-arrow-linebreak": "off",
     "operator-linebreak": "off",
-    "no-else-return"  : "off"
+    "no-else-return"  : "off",
+    "consistent-return" : "off"
   },
   "plugins": []
 }
