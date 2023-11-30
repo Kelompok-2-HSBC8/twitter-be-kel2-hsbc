@@ -11,7 +11,6 @@ GET `BASE_URL/v1/chat`
 
 *HEADERS*
 
-json
 {
   "Authorization": "Bearer $token"
 }
@@ -24,7 +23,6 @@ json
 
 *Example Response*
 
-json
 {
   "status": 200,
   "message": "Success get message data",
