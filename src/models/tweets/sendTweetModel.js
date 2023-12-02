@@ -4,7 +4,7 @@ const sendTweetModel = async (content, id) => {
   const response = await prisma.tweet.create({
     data: {
       content,
-      id,
+      userId: id,
     },
   });
 
