@@ -14,14 +14,14 @@ GET `BASE_URL/v1/tweet`
 
 *HEADERS*
 
-json
+```JSON
 {
   "Authorization": "Bearer $token"
 }
-
+```
 *Example Response*
 
-json
+```JSON
 {
 "status": 200,
   "message": "Success get tweet data",
@@ -108,6 +108,7 @@ json
       "shareBy": []
     }]
 }
+```
 
 ## `Get Tweet By ID`
 
@@ -116,11 +117,11 @@ GET `BASE_URL/v1/tweet/:id`
 
 *HEADERS*
 
-json
+```JSON
 {
   "Authorization": "Bearer $token"
 }
-
+```
 
 *REQUEST PARAMS*
 
@@ -132,7 +133,7 @@ json
 
 *Example Response*
 
-json
+```JSON
 {
   "status": 200,
   "message": "Success get detail tweet",
@@ -211,7 +212,7 @@ json
     "shareBy": []
   }
 }
-
+```
 ## `Create Tweet`
 
 *URL*:
@@ -219,11 +220,11 @@ POST `BASE_URL/v1/tweet`
 
 *HEADERS*
 
-json
+```JSON
 {
   "Authorization": "Bearer $token"
 }
-
+```
 
 *REQUEST BODY*
 
@@ -245,11 +246,11 @@ PUT `BASE_URL/v1/tweet`
 
 *HEADERS*
 
-json
+```JSON
 {
   "Authorization": "Bearer $token"
 }
-
+```
 
 *REQUEST BODY*
 
@@ -261,9 +262,9 @@ json
 
 *Example Response*
 
-json
+```JSON
 { status: 200, message: 'Success update data tweet' }
-
+```
 ## `Delete Tweet`
 
 *URL*:
@@ -271,11 +272,11 @@ DELETE `BASE_URL/v1/tweet`
 
 *HEADERS*
 
-json
+```JSON
 {
   "Authorization": "Bearer $token"
 }
-
+```
 
 *REQUEST BODY*
 
@@ -287,6 +288,6 @@ json
 
 *Example Response*
 
-json
+```JSON
 { status: 200, message: 'Success delete tweet' }
-
+```

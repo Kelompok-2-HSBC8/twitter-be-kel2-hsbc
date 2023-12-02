@@ -10,12 +10,11 @@
 GET `BASE_URL/v1/chat`
 
 *HEADERS*
-
-json
+```JSON
 {
   "Authorization": "Bearer $token"
 }
-
+```
 *REQUEST BODY*
 
 | Field        | Type      | Info                                                      |
@@ -23,8 +22,7 @@ json
 | `id`         | Required  | UserID                                                    |
 
 *Example Response*
-
-json
+```JSON
 {
   "status": 200,
   "message": "Success get message data",
@@ -199,7 +197,7 @@ json
     }
   ]
 }
-
+```
 ## `Send Message`
 
 *URL*:
@@ -207,11 +205,11 @@ POST `BASE_URL/v1/chat`
 
 *HEADERS*
 
-json
+```JSON
 {
   "Authorization": "Bearer $token"
 }
-
+```
 
 *REQUEST BODY*
 
@@ -225,8 +223,9 @@ json
 
 *Example Response*
 
-json
+```JSON
 {
   "status": 201,
   "message": "Success send message"
 }
+```
