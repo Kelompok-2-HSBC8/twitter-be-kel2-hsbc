@@ -1,8 +1,13 @@
 const sendCommentModel = require('../../models/tweets/sendcommentTweetModel');
+const parseJwt = require('../../helpers/decodeJWT');
 
 const sendComment = async (req, res) => {
   try {
-    const { tweetId, id, content } = req.body;
+    const bearerHeader = req.headers.authorization;
+    const bearerToken = bearerHeader.split(' ')[1];
+    const data = parseJwt(bearerToken);
+    const id = data.sub;
+    const { tweetId, content } = req.body;
     const response = await sendCommentModel(tweetId, content, id);
     if (response) {
       res.status(201).json({ status: 201, message: 'Success send comment' });
