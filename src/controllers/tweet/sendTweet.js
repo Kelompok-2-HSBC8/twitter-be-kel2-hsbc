@@ -1,14 +1,26 @@
 const sendTweetModel = require('../../models/tweets/sendTweetModel');
+const parseJwt = require('../../helpers/decodeJWT');
 
 const sendTweet = async (req, res) => {
   try {
-    const { content, id } = req.body;
+    const bearerHeader = req.headers.authorization;
+    const bearerToken = bearerHeader.split(' ')[1];
+    const data = parseJwt(bearerToken);
+    const id = data.sub;
+    const { content } = req.body;
     if (!content) {
-      return res.status(400).json({ status: 400, message: 'Bad Request, Please provide content' });
+      return res
+        .status(400)
+        .json({ status: 400, message: 'Bad Request, Please provide content' });
     }
 
     if (!id) {
-      return res.status(400).json({ status: 400, message: 'Bad Request, Please provide userId as id' });
+      return res
+        .status(400)
+        .json({
+          status: 400,
+          message: 'Bad Request, Please provide userId as id',
+        });
     }
     const response = await sendTweetModel(content, id);
     if (!response) {
