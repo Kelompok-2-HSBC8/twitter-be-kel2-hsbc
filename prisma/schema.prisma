@@ -58,15 +58,15 @@ model Retweet {
 model Tweet {
   id           String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   createdAt    DateTime       @default(now())
-  updatedAt    DateTime       @default(now())
-  isUpdated    Boolean        @default(false)
   content      String?
   userId       String?        @db.Uuid
-  commentBy      Comment[]
-  likesBy        Likes[]
+  updatedAt    DateTime?      @default(now()) @db.Timestamp(6)
+  isUpdated    Boolean?       @default(false)
+  commentBy    Comment[]
+  likesBy      Likes[]
   Notification Notification[]
-  retweetBy      Retweet[]
-  shareBy        Share[]
+  retweetBy    Retweet[]
+  shareBy      Share[]
   Trend        Trend[]
   postedBy     users?         @relation(fields: [userId], references: [id], onDelete: Cascade)
   TrendToTweet TrendToTweet[]
@@ -371,11 +371,14 @@ model users {
   sessions                          sessions[]
   Chat                              Chat[]
   Comment                           Comment[]
+  bio                               Description[]
+  followers                         Followers[]
+  following                         Following[]
   Likes                             Likes[]
   Message_Message_receiverIdTousers Message[]      @relation("Message_receiverIdTousers")
   Message_Message_senderIdTousers   Message[]      @relation("Message_senderIdTousers")
   Notification                      Notification[]
-  Retweet                           Retweet[]
+  retweet                           Retweet[]
   Share                             Share[]
   Trend                             Trend[]
   tweet                             Tweet[]
@@ -416,6 +419,34 @@ model Chat {
   messageId String?  @db.Uuid
   Message   Message? @relation(fields: [messageId], references: [id], onDelete: Cascade)
   sender    users?   @relation(fields: [senderId], references: [id], onDelete: Cascade)
+
+  @@schema("public")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model Description {
+  id     String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId String  @db.Uuid
+  bio    String?
+  users  users   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@schema("public")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model Followers {
+  userId String @db.Uuid
+  id     String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  users  users  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@schema("public")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model Following {
+  id     String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId String @db.Uuid
+  users  users  @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@schema("public")
 }
