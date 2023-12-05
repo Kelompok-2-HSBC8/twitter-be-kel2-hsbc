@@ -1,9 +1,9 @@
 const prisma = require('../../config/db');
 
-const unlikeTweetModel = async (tweetId) => {
+const unlikeTweetModel = async (id) => {
   const response = await prisma.likes.delete({
     where: {
-      tweetId,
+      id,
     },
   });
   return response;
