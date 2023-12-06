@@ -69,6 +69,9 @@ const getTweetModel = async () => {
         },
       },
     },
+    orderBy: {
+      createdAt: 'desc',
+    },
   });
 
   return response;
