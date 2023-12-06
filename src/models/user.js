@@ -80,6 +80,9 @@ exports.user = async () => {
             },
           },
         },
+        orderBy: {
+          createdAt: 'desc',
+        },
       },
       retweet: {
         select: {
@@ -161,6 +164,9 @@ exports.user = async () => {
               },
             },
           },
+        },
+        orderBy: {
+          createdAt: 'desc',
         },
       },
     },
@@ -251,6 +257,9 @@ exports.userId = async (userid) => {
             },
           },
         },
+        orderBy: {
+          createdAt: 'desc',
+        },
       },
       retweet: {
         select: {
@@ -332,6 +341,9 @@ exports.userId = async (userid) => {
               },
             },
           },
+        },
+        orderBy: {
+          createdAt: 'desc',
         },
       },
     },
