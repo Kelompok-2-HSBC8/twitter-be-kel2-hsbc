@@ -8,6 +8,7 @@ const getTweetById = require('../controllers/tweet/getTweetById');
 const likeTweet = require('../controllers/tweet/likeTweet');
 const unlikeTweet = require('../controllers/tweet/unlikeTweet');
 const sendComment = require('../controllers/tweet/sendComment');
+const retweet = require('../controllers/tweet/retweetTweet');
 
 const tweetRouter = express.Router();
 
@@ -19,5 +20,6 @@ tweetRouter.get('/v1/tweet/:id', authMiddleware, getTweetById);
 tweetRouter.post('/v1/tweet/like', authMiddleware, likeTweet);
 tweetRouter.delete('/v1/tweet/like', authMiddleware, unlikeTweet);
 tweetRouter.post('/v1/tweet/comment', authMiddleware, sendComment);
+tweetRouter.post('/v1/tweet/retweet', authMiddleware, retweet);
 
 module.exports = tweetRouter;
