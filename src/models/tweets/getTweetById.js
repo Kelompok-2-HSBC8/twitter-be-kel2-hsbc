@@ -31,6 +31,9 @@ const tweetById = async (id) => {
             },
           },
         },
+        orderBy: {
+          createdAt: 'desc',
+        }
       },
       likesBy: {
         select: {
